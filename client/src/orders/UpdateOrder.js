@@ -9,4 +9,6 @@ const UpdateOrder = () => {
   );
 };
 
+const Wrapper = styled.div``;
+
 export default UpdateOrder;

@@ -9,4 +9,6 @@ const ProductDetails = () => {
   );
 };
 
+const Wrapper = styled.div``;
+
 export default ProductDetails;
