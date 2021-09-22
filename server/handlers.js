@@ -35,10 +35,11 @@ const {
   getAllUsers,
   saveToFakeUserDB,
   findOneByUsername,
+  findOneByUser_id,
 } = require("./data");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
-const session = require("express-session");
+//const session = require("express-session");
 
 const listCompanies = (req, res) => {
   const first20 = getAllCompanies().slice(0, 20);
@@ -70,7 +71,12 @@ const listUsers = (req, res) => {
 };
 
 const showUserProfile = (req, res) => {
-  res.send("/user/me endpoint: User Profile Page");
+  const userFound = findOneByUser_id(req.session.user_id);
+  res.status(200).json({
+    status: 200,
+    data: userFound,
+    message: "Here is your user profile",
+  });
 };
 
 const handleSignUp = async (req, res) => {
@@ -96,6 +102,8 @@ const handleSignUp = async (req, res) => {
       cart: [],
     };
     saveToFakeUserDB(newUser);
+    //if the user signed up, save _id of the user to session
+    req.session.user_id = userFound._id;
     console.log("users num:", getAllUsers().length);
     res.status(200).json({
       status: 200,

@@ -12,14 +12,18 @@ const getAllUsers = () => {
   return users;
 };
 
-// a fake method of db.users.save()
+// mock method of db.users.save()
 const saveToFakeUserDB = (newUser) => {
   return users.push(newUser);
 };
 
-// a fake method of db.users.findOne()
+// mock method of db.users.findOne({username:<username>})
 const findOneByUsername = (username) => {
   return users.find((user) => user.username === username);
+};
+// mock method of db.user.findOne({_id:<ObjectId>})
+const findOneByUser_id = (_id) => {
+  return users.find((user) => user._id === _id);
 };
 
 module.exports = {
@@ -28,4 +32,5 @@ module.exports = {
   getAllCompanies,
   saveToFakeUserDB,
   findOneByUsername,
+  findOneByUser_id,
 };

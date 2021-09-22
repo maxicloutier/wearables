@@ -4,13 +4,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const session = require("express-session");
+const userRoutes = require("./routes/user");
 const app = express();
 const {
   listCompanies,
   listUsers,
   showUserProfile,
   handleLogin,
-  handleLogout,
   handleSignUp,
 } = require("./handlers");
 
@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
 app.use(session({ secret: "mongoose" }));
+app.use("/user", userRoutes);
 
 // REST endpoints?
 app.get("/bacon", (req, res) => res.status(200).json("🥓"));
@@ -45,7 +46,6 @@ app.get("/user/me", showUserProfile);
 app.post("/signup", handleSignUp);
 // check the user
 app.post("/login", handleLogin);
-app.post("/user/logout", handleLogout);
 
 // only for testing, should not be used in FE
 app.get("/users", listUsers);
