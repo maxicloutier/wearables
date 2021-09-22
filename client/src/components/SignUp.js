@@ -15,6 +15,8 @@ const SignUp = () => {
         <input type="text" placeholder="First Name" name="first-name" required />
         <label for="last-name">Last Name</label>
         <input type="text" placeholder="Last Name" name="last-name" required />
+        <label for="username">Username</label>
+        <input type="text" placeholder="Username" name="username" required />
         <label for="email">Email</label>
         <input type="email" placeholder="Email" name="email" required />
         <label for="password">Password</label>
