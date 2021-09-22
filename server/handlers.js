@@ -101,9 +101,12 @@ const handleSignUp = async (req, res) => {
       hashedPassword: hash,
       cart: [],
     };
-    saveToFakeUserDB(newUser);
     //if the user signed up, save _id of the user to session
-    req.session.user_id = userFound._id;
+    if (newUser) {
+      req.session.user_id = newUser._id;
+    }
+    saveToFakeUserDB(newUser);
+
     console.log("users num:", getAllUsers().length);
     res.status(200).json({
       status: 200,

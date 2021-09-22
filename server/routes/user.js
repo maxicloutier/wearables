@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { showUserProfile, handleLogout } = require("../handlers");
 
-//TODO: Need auth middleware before using this router //router.use()
+// Need auth middleware before using this router //router.use()
 router.use((req, res, next) => {
   if (!req.session.user_id) {
     console.log("AUTH FAILED!");
