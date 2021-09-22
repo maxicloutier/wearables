@@ -26,6 +26,16 @@ const findOneByUser_id = (_id) => {
   return users.find((user) => user._id === _id);
 };
 
+// mock method of db.items.findOne({_id:<ObjectId>})
+const findOneByItem_id = (_id) => {
+  return items.find((item) => item._id === Number(_id));
+};
+
+// mock method of .insertOne()
+const addProductToCart = (currentUser, product) => {
+  currentUser.cart.push(product);
+};
+
 module.exports = {
   getAllProducts,
   getAllUsers,
@@ -33,4 +43,6 @@ module.exports = {
   saveToFakeUserDB,
   findOneByUsername,
   findOneByUser_id,
+  findOneByItem_id,
+  addProductToCart,
 };

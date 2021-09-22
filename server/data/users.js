@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 
-// a fake user database:
+// mock user database collection:
 const users = [
   {
     _id: uuidv4(),

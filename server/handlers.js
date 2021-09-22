@@ -33,13 +33,48 @@ const { getAllCompanies } = require("./data");
 const {
   getAllCompanies,
   getAllUsers,
+  getAllProducts,
   saveToFakeUserDB,
   findOneByUsername,
   findOneByUser_id,
+  findOneByItem_id,
+  addProductToCart,
 } = require("./data");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 //const session = require("express-session");
+
+const listProducts = (req, res) => {
+  const first20 = getAllProducts().slice(0, 20);
+  if (first20) {
+    res.status(200).json({
+      status: 200,
+      data: first20,
+    });
+  } else {
+    res.status(404).json({
+      status: 404,
+      message: "Failed to find product",
+    });
+  }
+};
+
+const getProductBy_id = (req, res) => {
+  const { _id } = req.params;
+  //console.log("_id", _id);
+  const productFound = findOneByItem_id(_id);
+  if (productFound) {
+    res.status(200).json({
+      status: 200,
+      data: productFound,
+    });
+  } else {
+    res.status(404).json({
+      status: 404,
+      message: "Product not found!",
+    });
+  }
+};
 
 const listCompanies = (req, res) => {
   const first20 = getAllCompanies().slice(0, 20);
@@ -102,9 +137,8 @@ const handleSignUp = async (req, res) => {
       cart: [],
     };
     //if the user signed up, save _id of the user to session
-    if (newUser) {
-      req.session.user_id = newUser._id;
-    }
+    req.session.user_id = newUser._id;
+
     saveToFakeUserDB(newUser);
 
     console.log("users num:", getAllUsers().length);
@@ -161,19 +195,35 @@ const handleLogout = (req, res) => {
   });
 };
 
-const handleUserProfile = (params) => {};
+const handleCheckout = (req, res) => {};
 
-const handleSignIn = (params) => {};
+//not the real handlePurchase function, only for testing
+const handlePurchase_test = (req, res) => {
+  console.log("_id test", req.session.user_id);
+  const currentUser = findOneByUser_id(req.session.user_id);
+  console.log("cart before:", currentUser.cart);
+  //add first product to the user's cart
+  const p = findOneByItem_id(6543);
+  console.log("product", p);
+  addProductToCart(currentUser, p);
+  console.log("cart after:", currentUser.cart);
+  res.status(200).json({
+    status: 200,
+    cart: currentUser.cart,
+  });
+};
 
 module.exports = {
   getProduct,
   getSingleProduct,
-  handleUserProfile,
-  handleSignIn,
   listCompanies,
   listUsers,
+  listProducts,
   showUserProfile,
   handleLogin,
   handleLogout,
   handleSignUp,
+  handleCheckout,
+  getProductBy_id,
+  handlePurchase_test,
 };

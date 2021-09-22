@@ -9,7 +9,8 @@ const app = express();
 const {
   listCompanies,
   listUsers,
-  showUserProfile,
+  listProducts,
+  getProductBy_id,
   handleLogin,
   handleSignUp,
 } = require("./handlers");
@@ -39,15 +40,17 @@ app.use("/user", userRoutes);
 app.get("/bacon", (req, res) => res.status(200).json("🥓"));
 // test: get the first 20 companies
 app.get("/company", listCompanies);
-// get user profile
-app.get("/user/me", showUserProfile);
 
 // add new user to the fake db collection:users
 app.post("/signup", handleSignUp);
 // check the user
 app.post("/login", handleLogin);
 
-// only for testing, should not be used in FE
+// only for testing
 app.get("/users", listUsers);
+app.get("/product20", listProducts);
+
+// for pruchase
+app.get("/product/:_id", getProductBy_id);
 
 app.listen(PORT, () => console.info(`Listening on port ${PORT}`));
