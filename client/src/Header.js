@@ -4,10 +4,15 @@ import { createGlobalStyle } from "styled-components";
 
 const Header = () => {
   return (
-    <header>
+    <HeaderWrapper>
       <nav>menu</nav>
-    </header>
+    </HeaderWrapper>
   );
 };
+
+const HeaderWrapper = styled.header`
+  background-color: hsla(0, 0, 5, 1);
+  height: 50px;
+`;
 
 export default Header;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+// import Categories from "./Categories";
 
 const Shop = () => {
   let history = useHistory();
@@ -13,30 +14,38 @@ const Shop = () => {
     <>
       <Wrapper>
         <CatWrapper>
-          <Categories>
+          <Cats>
             <button onClick={() => handleClick("Fitness")}>Fitness</button>
-          </Categories>
-          <Categories>
+          </Cats>
+          <Cats>
             <button onClick={() => handleClick("Fitness")}>Fitness</button>
-          </Categories>
-          <Categories>
+          </Cats>
+          <Cats>
             <button onClick={() => handleClick("Lifestyle")}>Lifestyle</button>
-          </Categories>
-          <Categories>
+          </Cats>
+          <Cats>
             <button onClick={() => handleClick("Entertainment")}>
               Entertainment
             </button>
-          </Categories>
-          <Categories>
+          </Cats>
+          <Cats>
             <button onClick={() => handleClick("Pets and Animals")}>
               Pets and Animals
             </button>
-          </Categories>
-          <Categories>
+          </Cats>
+          <Cats>
             <button onClick={() => handleClick("Gaming")}>Gaming</button>
-          </Categories>
+          </Cats>
         </CatWrapper>
-        <Categories category={category} />
+        {/* <Categories
+          name={name}
+          price={price}
+          body_location={body_location}
+          category={category}
+          imageSrc={imageSrc}
+          numInStock={numInStock}
+          companyId={companyId}
+        /> */}
       </Wrapper>
     </>
   );
@@ -50,7 +59,7 @@ const CatWrapper = styled.div`
   display: inline-flex;
 `;
 
-const Categories = styled.div`
+const Cats = styled.div`
   width: 30%;
 `;
 

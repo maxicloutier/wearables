@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-// import logo from "./logo.svg";
 import styled from "styled-components";
-// import { Reset } from "styled-reset";
+import { createGlobalStyle } from "styled-components";
 import Header from "./Header";
 import Shop from "./products/Shop";
-import Categories from "./products/Categories";
+// import Categories from "./products/Categories";
 import ProductDetails from "./products/ProductDetails";
 import UpdateOrder from "./orders/UpdateOrder";
 import HomePage from "./Homepage";
@@ -26,7 +25,7 @@ function App() {
           </Route>
           <Route exact path="/categories">
             <Header />
-            <Categories />
+            {/* <Categories /> */}
           </Route>
           <Route exact path="/productdetails">
             <Header />
@@ -44,7 +43,17 @@ function App() {
   );
 }
 
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+`;
+
 const Wrapper = styled.div`
+  margin: 0;
+  padding: 0;
   /* background-color: hsla(204, 67%, 25%, 1); */
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#152f40+0,3b6d8c+100 */
   background: #152f40; /* Old browsers */
@@ -64,7 +73,7 @@ const Wrapper = styled.div`
     #3b6d8c 100%
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#152f40', endColorstr='#3b6d8c',GradientType=0 ); /* IE6-9 */
-width: 100vw
+  width: 100vw;
   height: 100vh;
 `;
 

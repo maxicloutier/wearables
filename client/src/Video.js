@@ -6,7 +6,7 @@ const Video = () => {
   return (
     <>
       <VideoContainer>
-        <video autoPlay playsInline muted width={"98.5%"} src={video} />
+        <video autoPlay playsInline muted width={"100%"} src={video} />
       </VideoContainer>
     </>
   );
@@ -14,9 +14,9 @@ const Video = () => {
 
 const VideoContainer = styled.div`
   position: fixed;
-  top: 0;
+  top: 50px;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   height: auto;
   z-index: -1;
 `;
