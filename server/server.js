@@ -10,6 +10,7 @@ const {
   listCompanies,
   listUsers,
   listProducts,
+  listOrders,
   getProductBy_id,
   handleLogin,
   handleSignUp,
@@ -49,6 +50,7 @@ app.post("/login", handleLogin);
 // only for testing
 app.get("/users", listUsers);
 app.get("/product20", listProducts);
+app.get("/orders", listOrders);
 
 // for pruchase
 app.get("/product/:_id", getProductBy_id);

@@ -20,11 +20,6 @@ const getAllOrders = () => {
 const saveToFakeUserCollection = (newUser) => {
   return users.push(newUser);
 };
-// mock method of db.orders.save()
-const saveToFakeOrdersCollection = (newOrder) => {
-  return orders.push(newOrder);
-};
-
 // mock method of db.users.findOne({username:<username>})
 const findOneByUsername = (username) => {
   return users.find((user) => user.username === username);
@@ -33,9 +28,31 @@ const findOneByUsername = (username) => {
 const findOneByUser_id = (_id) => {
   return users.find((user) => user._id === _id);
 };
-// mock method of db.items.findOne({_id:<ObjectId>})
+
+// mock method of db.items.findOne({_id:<Number>})
 const findOneByItem_id = (_id) => {
   return items.find((item) => item._id === Number(_id));
+};
+
+// mock method of db.orders.save()
+const saveToFakeOrdersCollection = (newOrder) => {
+  return orders.push(newOrder);
+};
+// mock method of db.orders.find({user_id:<ObjectId>})
+const findAllOrdersByUser_id = (user_id) => {
+  return orders.filter((order) => order.user_id == user_id);
+};
+// db.orders.findOne({_id:<ObjectId>})
+const findOneOrderBy_id = (_id) => {
+  return orders.find((order) => order._id === _id);
+};
+// mock method of db.orders.deleteOne({_id:<ObjectId>})
+const deleteOneOrderBy_id = (_id) => {
+  const orderFound = findOneOrderBy_id(_id);
+  if (orderFound) {
+    const i = orders.indexOf(orderFound);
+    orders.splice(i, 1);
+  }
 };
 
 // mock method of .insertOne()
@@ -53,5 +70,8 @@ module.exports = {
   findOneByUsername,
   findOneByUser_id,
   findOneByItem_id,
+  findOneOrderBy_id,
+  findAllOrdersByUser_id,
+  deleteOneOrderBy_id,
   addProductToCart,
 };

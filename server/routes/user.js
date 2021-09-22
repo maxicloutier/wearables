@@ -5,6 +5,9 @@ const {
   handleLogout,
   handleCheckout,
   handlePurchase_test,
+  listUserOrders,
+  getOrderBy_id,
+  deleteOrderBy_id,
 } = require("../handlers");
 
 // Need auth middleware before using this router
@@ -22,9 +25,9 @@ router.use((req, res, next) => {
 /*endpoints for this route:
 GET/user/me; GET/user/me/order; GET/user/order; GET/user/order/:orderId; DELETE/user/order/:orderId; PATCH/user/cart; POST /user/logout; POST /user/checkout
 */
-router.get("/order", (req, res) => {
-  res.send("The order page of current user");
-});
+router.get("/order", listUserOrders);
+router.get("/order/:_id", getOrderBy_id);
+router.delete("/order/:_id", deleteOrderBy_id);
 router.get("/me", showUserProfile);
 router.post("/logout", handleLogout);
 router.post("/checkout", handleCheckout);

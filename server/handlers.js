@@ -40,6 +40,10 @@ const {
   findOneByItem_id,
   addProductToCart,
   saveToFakeOrdersCollection,
+  findAllOrdersByUser_id,
+  deleteOneOrderBy_id,
+  getAllOrders,
+  findOneOrderBy_id,
 } = require("./data");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
@@ -56,6 +60,42 @@ const listProducts = (req, res) => {
     res.status(404).json({
       status: 404,
       message: "Failed to find product",
+    });
+  }
+};
+const listOrders = (req, res) => {
+  res.send(getAllOrders());
+};
+
+const getOrderBy_id = (req, res) => {
+  const { _id } = req.params;
+  const orderFound = findOneOrderBy_id(_id);
+  if (orderFound) {
+    res.status(200).json({
+      status: 200,
+      order: orderFound,
+    });
+  } else {
+    return res.status(404).json({
+      status: 404,
+      message: "Order not found!",
+    });
+  }
+};
+const deleteOrderBy_id = (req, res) => {
+  // should add a mock delete function in data/index.js
+  const { _id } = req.params;
+  const orderFound = findOneOrderBy_id(_id);
+  if (orderFound) {
+    deleteOneOrderBy_id(_id);
+    res.status(200).json({
+      status: 200,
+      message: `Order: _id: ${_id} has been deleted!`,
+    });
+  } else {
+    res.status(404).json({
+      status: 404,
+      message: "Failed to delete: cannot find the order",
     });
   }
 };
@@ -215,7 +255,7 @@ const handleCheckout = (req, res) => {
       user_id: currentUser._id,
       data: cart,
     };
-    saveToFakeOrdersCollection();
+    saveToFakeOrdersCollection(newOrder);
 
     res.status(200).json({
       status: 200,
@@ -227,13 +267,35 @@ const handleCheckout = (req, res) => {
   currentUser.cart = [];
 };
 
+const listUserOrders = (req, res) => {
+  const user_id = req.session.user_id;
+  console.log("cur user_id", user_id);
+  if (user_id) {
+    const orderAry = findAllOrdersByUser_id(user_id);
+    console.log("order list:", orderAry);
+
+    if (orderAry) {
+      res.status(200).json({
+        status: 200,
+        message: "Here lists your orders",
+        orders: orderAry,
+      });
+    } else {
+      res.status(404).json({
+        status: 400,
+        message: "Sorry, order not found!",
+      });
+    }
+  }
+};
+
 //not the real handlePurchase function, only for testing
 const handlePurchase_test = (req, res) => {
   console.log("_id test", req.session.user_id);
   const currentUser = findOneByUser_id(req.session.user_id);
   console.log("cart before:", currentUser.cart);
-  //add first product to the user's cart
-  const p = findOneByItem_id(6543);
+  //add a random product(_id between 6543 and 6550) to the user's cart
+  const p = findOneByItem_id(getRandomInt(6543, 6550));
   console.log("product", p);
   addProductToCart(currentUser, p);
   console.log("cart after:", currentUser.cart);
@@ -242,6 +304,11 @@ const handlePurchase_test = (req, res) => {
     data: currentUser.cart,
   });
 };
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+};
 
 module.exports = {
   getProduct,
@@ -249,11 +316,15 @@ module.exports = {
   listCompanies,
   listUsers,
   listProducts,
+  listOrders,
+  listUserOrders,
   showUserProfile,
   handleLogin,
   handleLogout,
   handleSignUp,
   handleCheckout,
   getProductBy_id,
+  getOrderBy_id,
+  deleteOrderBy_id,
   handlePurchase_test,
 };
