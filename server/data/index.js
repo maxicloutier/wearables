@@ -1,6 +1,7 @@
 const items = require("./items.json");
 const companies = require("./companies.json");
 const users = require("./users");
+const orders = require("./orders");
 
 const getAllProducts = () => {
   return items;
@@ -11,10 +12,17 @@ const getAllCompanies = () => {
 const getAllUsers = () => {
   return users;
 };
+const getAllOrders = () => {
+  return orders;
+};
 
 // mock method of db.users.save()
-const saveToFakeUserDB = (newUser) => {
+const saveToFakeUserCollection = (newUser) => {
   return users.push(newUser);
+};
+// mock method of db.orders.save()
+const saveToFakeOrdersCollection = (newOrder) => {
+  return orders.push(newOrder);
 };
 
 // mock method of db.users.findOne({username:<username>})
@@ -25,7 +33,6 @@ const findOneByUsername = (username) => {
 const findOneByUser_id = (_id) => {
   return users.find((user) => user._id === _id);
 };
-
 // mock method of db.items.findOne({_id:<ObjectId>})
 const findOneByItem_id = (_id) => {
   return items.find((item) => item._id === Number(_id));
@@ -40,7 +47,9 @@ module.exports = {
   getAllProducts,
   getAllUsers,
   getAllCompanies,
-  saveToFakeUserDB,
+  getAllOrders,
+  saveToFakeUserCollection,
+  saveToFakeOrdersCollection,
   findOneByUsername,
   findOneByUser_id,
   findOneByItem_id,

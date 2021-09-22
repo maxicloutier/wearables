@@ -34,11 +34,12 @@ const {
   getAllCompanies,
   getAllUsers,
   getAllProducts,
-  saveToFakeUserDB,
+  saveToFakeUserCollection,
   findOneByUsername,
   findOneByUser_id,
   findOneByItem_id,
   addProductToCart,
+  saveToFakeOrdersCollection,
 } = require("./data");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
@@ -116,6 +117,7 @@ const showUserProfile = (req, res) => {
 
 const handleSignUp = async (req, res) => {
   const { password, username } = req.body;
+  // I guess password should be required in FE, so...
   const hash = await bcrypt.hash(password, 12);
   // then save the new user to the fake datebase
   console.log("hash:", hash);
@@ -139,7 +141,7 @@ const handleSignUp = async (req, res) => {
     //if the user signed up, save _id of the user to session
     req.session.user_id = newUser._id;
 
-    saveToFakeUserDB(newUser);
+    saveToFakeUserCollection(newUser);
 
     console.log("users num:", getAllUsers().length);
     res.status(200).json({
@@ -195,7 +197,35 @@ const handleLogout = (req, res) => {
   });
 };
 
-const handleCheckout = (req, res) => {};
+const handleCheckout = (req, res) => {
+  /* add a new order to the order collection 
+  an order should be like this:
+  {
+    _id: uuid,
+    user_id: uuid,
+    data:<array getting from cart>
+    //maybe also should add the checkout time/date?
+  }
+  */
+  const currentUser = findOneByUser_id(req.session.user_id);
+  const cart = currentUser.cart;
+  if (cart) {
+    const newOrder = {
+      _id: uuidv4(),
+      user_id: currentUser._id,
+      data: cart,
+    };
+    saveToFakeOrdersCollection();
+
+    res.status(200).json({
+      status: 200,
+      orderDetails: newOrder,
+      message: "Happy shopping!",
+    });
+  }
+  // clear the current user's cart
+  currentUser.cart = [];
+};
 
 //not the real handlePurchase function, only for testing
 const handlePurchase_test = (req, res) => {
@@ -209,7 +239,7 @@ const handlePurchase_test = (req, res) => {
   console.log("cart after:", currentUser.cart);
   res.status(200).json({
     status: 200,
-    cart: currentUser.cart,
+    data: currentUser.cart,
   });
 };
 
