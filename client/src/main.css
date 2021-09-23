@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+
+body {
+  font-family: "Play", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Color Theme Swatches in Hex */
+.Graphic-Design-1-hex {
+  color: #6129d9;
+}
+.Graphic-Design-2-hex {
+  color: #4b21a6;
+}
+.Graphic-Design-3-hex {
+  color: #f2da5e;
+}
+.Graphic-Design-4-hex {
+  color: #f2a341;
+}
+.Graphic-Design-5-hex {
+  color: #0d0d0d;
+}
+
+/* Color Theme Swatches in RGBA */
+.Graphic-Design-1-rgba {
+  color: rgba(96, 41, 216, 1);
+}
+.Graphic-Design-2-rgba {
+  color: rgba(75, 33, 165, 1);
+}
+.Graphic-Design-3-rgba {
+  color: rgba(242, 217, 94, 1);
+}
+.Graphic-Design-4-rgba {
+  color: rgba(242, 162, 65, 1);
+}
+.Graphic-Design-5-rgba {
+  color: rgba(12, 12, 12, 1);
+}
+
+/* Color Theme Swatches in HSLA */
+.Graphic-Design-1-hsla {
+  color: hsla(258, 69, 50, 1);
+}
+.Graphic-Design-2-hsla {
+  color: hsla(258, 66, 39, 1);
+}
+.Graphic-Design-3-hsla {
+  color: hsla(50, 85, 66, 1);
+}
+.Graphic-Design-4-hsla {
+  color: hsla(33, 87, 60, 1);
+}
+.Graphic-Design-5-hsla {
+  color: hsla(0, 0, 5, 1);
+}
