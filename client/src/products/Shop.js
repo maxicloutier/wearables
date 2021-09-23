@@ -3,12 +3,6 @@ import styled from "styled-components";
 import { useHistory, useParams } from "react-router-dom";
 import ProductView from "./ProductsView";
 // import Pagination from "./Pagination";
-import Medical from "../assets/medical.png";
-import Fitness from "../assets/fitness.png";
-import Lifestyle from "../assets/lifestyle.png";
-import Entertainment from "../assets/entertainment.png";
-import Pets from "../assets/pets.png";
-import Gaming from "../assets/gaming.png";
 
 const Shop = () => {
   const [items, setItems] = useState(null);
@@ -67,7 +61,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Fitness")}>
               <ButtonLabel>
-                <img src={Fitness} />
+                <img src="/assets/fitness.png" />
                 <p>Fitness</p>
               </ButtonLabel>
             </CatButtons>
@@ -75,7 +69,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Medical")}>
               <ButtonLabel>
-                <img src={Medical} />
+                <img src="/assets/medical.png" />
                 <p>Medical</p>
               </ButtonLabel>
             </CatButtons>
@@ -83,7 +77,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Lifestyle")}>
               <ButtonLabel>
-                <img src={Lifestyle} />
+                <img src="/assets/lifestyle.png" />
                 <p>Lifestyle</p>
               </ButtonLabel>
             </CatButtons>
@@ -91,7 +85,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Entertainment")}>
               <ButtonLabel>
-                <img src={Entertainment} />
+                <img src="/assets/entertainment.png" />
                 <p>Entertainment</p>
               </ButtonLabel>
             </CatButtons>
@@ -99,7 +93,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Pets and Animals")}>
               <ButtonLabel>
-                <img src={Pets} />
+                <img src="/assets/pets.png" />
                 <p>Pets & Animals</p>
               </ButtonLabel>
             </CatButtons>
@@ -107,7 +101,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Gaming")}>
               <ButtonLabel>
-                <img src={Gaming} />
+                <img src="/assets/gaming.png" />
                 <p>Gaming</p>
               </ButtonLabel>
             </CatButtons>
