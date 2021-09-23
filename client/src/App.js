@@ -9,6 +9,10 @@ import ProductDetails from "./products/ProductDetails";
 import UpdateOrder from "./orders/UpdateOrder";
 import HomePage from "./Homepage";
 import Footer from "./Footer";
+import SignUp from "./components/SignUp.js";
+import SignIn from "./components/SignIn.js";
+import Team from "./components/Team.js";
+import Account from "./components/Account.js";
 
 function App() {
   return (
@@ -31,9 +35,25 @@ function App() {
             <Header />
             <UpdateOrder />
           </Route>
+          <Route exact path="/signup">
+            <Header />
+            <SignUp />
+          </Route>
+          <Route exact path="/signin">
+            <Header />
+            <SignIn />
+          </Route>
+          <Route exact path="/account">
+            <Header />
+            <Account />
+          </Route>
+          <Route exact path="/team">
+            <Header />
+            <Team />
+          </Route>
         </Switch>
+        <Footer />
       </Wrapper>
-      <Footer />
     </BrowserRouter>
   );
 }

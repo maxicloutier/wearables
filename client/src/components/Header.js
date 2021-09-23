@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
-  // Check sessionStorage to see if a user is already signed in, to determine whether to display the `Sign In` & `Sign Up` or `Account` & `Cart` links in the navigation bar.
-  let user = sessionStorage.getItem("user");
+  // Check localStorage to see if a user is already signed in, to determine whether to display the `Sign In` & `Sign Up` or `Account` & `Cart` links in the navigation bar.
+  const user = localStorage.getItem("user");
 
   return (
     <AppHeader>
@@ -56,6 +56,8 @@ const StyledLink = styled.nav`
   }
 `;
 
-const Logo = styled.img``;
+const Logo = styled.img`
+  width: 200px;
+`;
 
 export default Header;
