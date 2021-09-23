@@ -14,11 +14,16 @@ const Video = () => {
 
 const VideoContainer = styled.div`
   position: fixed;
-  top: 50px;
+  top: 0px;
+  left: 0px;
   overflow: hidden;
   width: 100%;
   height: auto;
   z-index: -1;
+
+  & video {
+    filter: grayscale(1) sepia(1) brightness(0.25) contrast(1.15);
+  }
 `;
 
 export default Video;
