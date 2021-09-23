@@ -14,8 +14,12 @@ const HomePage = () => {
           <CompanyName>
             <img src={Logo} alt="Wearables Logo" />
           </CompanyName>
+
           <ContentContainer>
-            <Headline>Wearable Tech Products</Headline>
+            <Headline>
+              The Future is Here Today <br />
+              Wearable Tech Products
+            </Headline>
             <Text>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
@@ -50,8 +54,27 @@ const ContentContainer = styled.div`
   z-index: 10;
   /* margin-left: 15px;
   margin-top: 25px; */
-  width: 325px;
+  width: 425px;
   height: 245px;
+`;
+
+const Headline = styled.h2`
+  color: #fff;
+  font-size: 32px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  letter-spacing: 1px;
+  /* z-index: 15;
+  opacity: 1; */
+`;
+
+const Text = styled.div`
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 2px;
+  line-height: 1.8;
+  margin-top: 0px;
   background: transparent;
   mix-blend-mode: multiply;
   background-color: #6129d9;
@@ -66,30 +89,16 @@ const ContentContainer = styled.div`
   border-bottom: solid 2px #f2a341;
   border-top: solid 2px #f2a341;
 `;
-
-const Headline = styled.h2`
-  color: #f2a341;
-  margin-bottom: 5px;
-  /* z-index: 15;
-  opacity: 1; */
-`;
-
-const Text = styled.p`
-  color: #fff;
-  font-size: 14px;
-  letter-spacing: 2px;
-  line-height: 1.8;
-  margin-top: 0px;
-`;
 const CompanyName = styled.div`
   width: 125px;
   height: auto;
   opacity: 1;
+  margin-right: 15px;
 
   & img {
     width: 100%;
     height: 100%;
-    margin-bottom: -33px;
+    margin-bottom: -123px;
   }
 `;
 
