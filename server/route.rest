@@ -1,0 +1,57 @@
+GET http://localhost:4000/bacon
+
+###
+POST http://localhost:4000/signup
+Content-Type: application/json
+
+{
+    "username": "larrythecat",
+    "password": "meowmeow"
+}
+
+###
+POST http://localhost:4000/signin
+Content-Type: application/json
+
+{
+    "username": "test",
+    "password": "password"
+}
+
+###
+POST http://localhost:4000/user/signout
+
+###
+GET http://localhost:4000/user/me
+
+###
+GET http://localhost:4000/user/order
+
+###
+GET http://localhost:4000/user/order/:_id
+
+###
+DELETE http://localhost:4000/user/order/:_id
+
+###
+GET http://localhost:4000/product20
+
+###
+PATCH http://localhost:4000/user/cart_test
+Content-Type: application/json
+
+{
+    "operation": "add",
+    "product_id": 6543
+}
+###
+PATCH http://localhost:4000/user/cart_test
+Content-Type: application/json
+
+{
+    "operation": "remove",
+    "product_id": 6543
+}
+###
+POST http://localhost:4000/user/checkout
+

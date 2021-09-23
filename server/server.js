@@ -12,7 +12,7 @@ const {
   listProducts,
   listOrders,
   getProductBy_id,
-  handleLogin,
+  handleSignIn,
   handleSignUp,
 } = require("./handlers");
 
@@ -45,7 +45,7 @@ app.get("/company", listCompanies);
 // add new user to the fake db collection:users
 app.post("/signup", handleSignUp);
 // check the user
-app.post("/login", handleLogin);
+app.post("/signin", handleSignIn);
 
 // only for testing
 app.get("/users", listUsers);

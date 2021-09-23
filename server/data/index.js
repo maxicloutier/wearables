@@ -60,6 +60,12 @@ const addProductToCart = (currentUser, product) => {
   currentUser.cart.push(product);
 };
 
+const removeProductFromCart = (currentUser, product) => {
+  // the checking logic is already in handlers/handlePurchase_t
+  const i = currentUser.cart.indexOf(product);
+  currentUser.cart.splice(i, 1);
+};
+
 module.exports = {
   getAllProducts,
   getAllUsers,
@@ -74,4 +80,5 @@ module.exports = {
   findAllOrdersByUser_id,
   deleteOneOrderBy_id,
   addProductToCart,
+  removeProductFromCart,
 };

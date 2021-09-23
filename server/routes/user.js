@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const {
   showUserProfile,
-  handleLogout,
+  handleSignOut,
   handleCheckout,
-  handlePurchase_test,
+  handlePurchase_t,
   listUserOrders,
   getOrderBy_id,
   deleteOrderBy_id,
+  getProductBy_idMW,
 } = require("../handlers");
 
 // Need auth middleware before using this router
@@ -29,11 +30,14 @@ router.get("/order", listUserOrders);
 router.get("/order/:_id", getOrderBy_id);
 router.delete("/order/:_id", deleteOrderBy_id);
 router.get("/me", showUserProfile);
-router.post("/logout", handleLogout);
+router.post("/signout", handleSignOut);
 router.post("/checkout", handleCheckout);
 
-/*in order to add endpoint POST /user/checkout, I need a function to add some products to the current user's cart.
-will replace POST"/cart_test" by PATCH"/cart" when Ranveer update this endpoint
+/* FIXME: (I am not sure, plz fix me if I am wrong):
+    I feel that for PATCH /user/cart, we only need to operation: "add" & "remove" rather than "add", "increase", "decrease" and "remove". And using these two operations can make the cart works.
+
+    In order to make sure, I think I need to check the FE part for shoping cart
 */
-router.post("/cart_test", handlePurchase_test);
+router.patch("/cart_test", getProductBy_idMW, handlePurchase_t);
+
 module.exports = router;

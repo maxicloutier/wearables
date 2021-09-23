@@ -39,6 +39,7 @@ const {
   findOneByUser_id,
   findOneByItem_id,
   addProductToCart,
+  removeProductFromCart,
   saveToFakeOrdersCollection,
   findAllOrdersByUser_id,
   deleteOneOrderBy_id,
@@ -82,11 +83,15 @@ const getOrderBy_id = (req, res) => {
     });
   }
 };
+
 const deleteOrderBy_id = (req, res) => {
   // should add a mock delete function in data/index.js
   const { _id } = req.params;
   const orderFound = findOneOrderBy_id(_id);
   if (orderFound) {
+    // if cancel the order, numInStock of the products must be changed
+    console.log("orderFound:", orderFound);
+    orderFound.data.forEach((product) => product.numInStock++);
     deleteOneOrderBy_id(_id);
     res.status(200).json({
       status: 200,
@@ -113,6 +118,23 @@ const getProductBy_id = (req, res) => {
     res.status(404).json({
       status: 404,
       message: "Product not found!",
+    });
+  }
+};
+
+// this function being used as middleware for PATCH /user/cart_test
+const getProductBy_idMW = (req, res, next) => {
+  console.log("req.body: ", req.body);
+  const result = findOneByItem_id(req.body.product_id);
+  console.log("result:", result);
+  if (result) {
+    res.productFound = result;
+    console.log("res.pf:", res.productFound);
+    next();
+  } else {
+    return res.status(400).json({
+      status: 400,
+      message: "Product not found",
     });
   }
 };
@@ -157,14 +179,12 @@ const showUserProfile = (req, res) => {
 
 const handleSignUp = async (req, res) => {
   const { password, username } = req.body;
-  // I guess password should be required in FE, so...
-  const hash = await bcrypt.hash(password, 12);
-  // then save the new user to the fake datebase
-  console.log("hash:", hash);
   //username and password are required when creating a new user
   if (username && password) {
     //username should be unique, findOneByUsername() should return false
     const userFound = findOneByUsername(username);
+    const hash = await bcrypt.hash(password, 12);
+
     if (userFound) {
       res.status(400).json({
         status: 400,
@@ -180,10 +200,9 @@ const handleSignUp = async (req, res) => {
     };
     //if the user signed up, save _id of the user to session
     req.session.user_id = newUser._id;
-
+    // then save the new user to the fake datebase
     saveToFakeUserCollection(newUser);
 
-    console.log("users num:", getAllUsers().length);
     res.status(200).json({
       status: 200,
       data: newUser,
@@ -196,7 +215,7 @@ const handleSignUp = async (req, res) => {
   }
 };
 
-const handleLogin = async (req, res) => {
+const handleSignIn = async (req, res) => {
   const { username, password } = req.body;
   //username should be unique, so use it for finding the user
   if (!username || !password) {
@@ -223,13 +242,13 @@ const handleLogin = async (req, res) => {
     }
   }
 
-  res.status(404).json({
-    status: 404,
+  res.status(400).json({
+    status: 400,
     message: "Failed to login, plz check your username and password",
   });
 };
 
-const handleLogout = (req, res) => {
+const handleSignOut = (req, res) => {
   req.session.destroy();
   res.status(200).json({
     status: 200,
@@ -289,25 +308,52 @@ const listUserOrders = (req, res) => {
   }
 };
 
-//not the real handlePurchase function, only for testing
-const handlePurchase_test = (req, res) => {
-  console.log("_id test", req.session.user_id);
+const handlePurchase_t = (req, res) => {
+  const operation = req.body.operation;
+  if (operation == null) {
+    return res.status(400).json({
+      status: 400,
+      message: "Bad request",
+    });
+  }
   const currentUser = findOneByUser_id(req.session.user_id);
-  console.log("cart before:", currentUser.cart);
-  //add a random product(_id between 6543 and 6550) to the user's cart
-  const p = findOneByItem_id(getRandomInt(6543, 6550));
-  console.log("product", p);
-  addProductToCart(currentUser, p);
-  console.log("cart after:", currentUser.cart);
-  res.status(200).json({
-    status: 200,
-    data: currentUser.cart,
-  });
-};
-const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
+  //numInStock of the product must be >=1, then can do the adding operation
+  if (operation === "add" && res.productFound.numInStock > 0) {
+    console.log("BEFORE adding to cart:", res.productFound.numInStock);
+    addProductToCart(currentUser, res.productFound);
+    // need to reduce the qty number of the product in stock
+    res.productFound.numInStock--;
+    console.log("AFTER adding to cart:", res.productFound.numInStock);
+    res.status(200).json({
+      status: 200,
+      message: "Increase the item by one",
+      item: res.productFound,
+    });
+  } else if (operation === "remove") {
+    //  if the product already in the cart, can do the removing operation
+    if (currentUser.cart.includes(res.productFound)) {
+      //  need to add the qty number of the product
+      // numInStock++
+      console.log("BEFORE decresing:", res.productFound.numInStock);
+      res.productFound.numInStock++;
+      removeProductFromCart(currentUser, res.productFound);
+      console.log("AFTER decresing:", res.productFound.numInStock);
+      res.status(200).json({
+        status: 200,
+        message: "Decreace the item by one",
+      });
+    } else {
+      return res.status(400).json({
+        status: 400,
+        message: "Failed to remove: the item is not in the cart",
+      });
+    }
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: "Failed purchase",
+    });
+  }
 };
 
 module.exports = {
@@ -319,12 +365,13 @@ module.exports = {
   listOrders,
   listUserOrders,
   showUserProfile,
-  handleLogin,
-  handleLogout,
+  handleSignIn,
+  handleSignOut,
   handleSignUp,
   handleCheckout,
   getProductBy_id,
+  getProductBy_idMW,
   getOrderBy_id,
   deleteOrderBy_id,
-  handlePurchase_test,
+  handlePurchase_t,
 };
