@@ -10,7 +10,7 @@ const Header = () => {
     <AppHeader>
       <StyledLink>
         <NavLink exact to="/">
-          <Logo src="/assets/logo.png" alt="Logo" />
+          {/* <Logo src="/assets/logo.png" alt="Logo" /> */}
         </NavLink>
         <NavLink exact to="/" activeClassName="selected">
           Home

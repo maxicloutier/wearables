@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import video from "./assets/pexels-vlada-karpovich-8439880.mp4";
 
 const Video = () => {
   return (
     <>
       <VideoContainer>
-        <video autoPlay playsInline muted width={"100%"} src={video} />
+        <video
+          autoPlay
+          playsInline
+          muted
+          width={"100%"}
+          src="/assets/pexels-vlada-karpovich-8439880.mp4"
+        />
       </VideoContainer>
     </>
   );

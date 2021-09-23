@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Video from "./Video";
 import "./main.css";
-import Logo from "./assets/logo.png";
 
 const HomePage = () => {
   return (
@@ -12,7 +11,7 @@ const HomePage = () => {
         <Video />
         <ContentWrapper>
           <CompanyName>
-            <img src={Logo} alt="Wearables Logo" />
+            <img src="/assets/logo.png" alt="Wearables Logo" />
           </CompanyName>
 
           <ContentContainer>

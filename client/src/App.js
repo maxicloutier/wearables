@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
 import Shop from "./products/Shop";
-import Categories from "./products/ProductsView";
 import ProductDetails from "./products/ProductDetails";
 import UpdateOrder from "./orders/UpdateOrder";
 import HomePage from "./Homepage";
