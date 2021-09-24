@@ -155,7 +155,6 @@ const DollarAmount = styled.div`
 const Cents = styled.div`
   font-size: 9px;
   padding-top: 3px;
-  l
 `;
 
 const Supply = styled.div`

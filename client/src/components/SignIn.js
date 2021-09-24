@@ -36,7 +36,6 @@ const SignIn = () => {
         if (data.status === 200) {
           // If operation sends a successful response, use localStorage so that the user stays signed in until they decide to sign out of their account. If unsuccessful response, send an error message.
           localStorage.setItem("username", formData.username);
-          localStorage.setItem("password", formData.password);
         } else {
           alert("Username or password is incorrect.");
         }

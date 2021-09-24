@@ -29,7 +29,6 @@ const getSingleProduct = (req, res) => {
   }
 };
 
-const { getAllCompanies } = require("./data");
 const {
   getAllCompanies,
   getAllUsers,
@@ -233,6 +232,7 @@ const handleSignIn = async (req, res) => {
     if (validPsw) {
       //if the user can login, save _id of the user to session
       req.session.user_id = userFound._id;
+      req.session.username = username;
       console.log("session:", req.session);
       return res.status(200).json({
         status: 200,
@@ -287,10 +287,10 @@ const handleCheckout = (req, res) => {
 };
 
 const listUserOrders = (req, res) => {
-  const user_id = req.session.user_id;
-  console.log("cur user_id", user_id);
-  if (user_id) {
-    const orderAry = findAllOrdersByUser_id(user_id);
+  const username = req.session.username;
+  console.log("cur user_id", username);
+  if (username) {
+    const orderAry = findAllOrdersByUser_id(username);
     console.log("order list:", orderAry);
 
     if (orderAry) {
@@ -356,11 +356,7 @@ const handlePurchase_t = (req, res) => {
   }
 };
 
-
-const { getAllProducts } = require("./data");
-
 const handleProduct = (req, res) => {
-
   const first20 = getAllProducts().slice(0, 20);
   res.status(200).json({
     status: 200,
@@ -370,58 +366,57 @@ const handleProduct = (req, res) => {
 };
 
 const handleSingleProduct = (req, res) => {
-    const { itemId } = req.params;
-    const singleItem = items.filter((item) => {
-      return item._id === Number(`${req.params.itemId}`);
-    });
+  const { itemId } = req.params;
+  const singleItem = items.filter((item) => {
+    return item._id === Number(`${req.params.itemId}`);
+  });
 
-    if (singleItem.length > 0) {
-      res.status(200).json({
-        status: 200,
-        message: `Successfully retrieved item ${itemId} `,
-        item: singleItem,
-      });
-    } else {
-      res.status(404).json({
-        status: 404,
-        message: "Couldn't find item",
-      });
-    }
+  if (singleItem.length > 0) {
+    res.status(200).json({
+      status: 200,
+      message: `Successfully retrieved item ${itemId} `,
+      item: singleItem,
+    });
+  } else {
+    res.status(404).json({
+      status: 404,
+      message: "Couldn't find item",
+    });
   }
+};
 
-  const sortCategory = (req) => {
-    const { category } = req.params;
-  
-    // filters the items by category into a new array
-    let filteredItems = items.filter((item) => {
-      if (item.category === category) {
-        return item;
-      }
-    });
-  
-    return filteredItems;
-  };
+const sortCategory = (req) => {
+  const { category } = req.params;
 
-  module.exports = {
-    handleProduct,
-    handleSingleProduct,
-    sortCategory,
-    getProduct,
-    getSingleProduct,
-    listCompanies,
-    listUsers,
-    listProducts,
-    listOrders,
-    listUserOrders,
-    showUserProfile,
-    handleSignIn,
-    handleSignOut,
-    handleSignUp,
-    handleCheckout,
-    getProductBy_id,
-    getProductBy_idMW,
-    getOrderBy_id,
-    deleteOrderBy_id,
-    handlePurchase_t,
-  };
+  // filters the items by category into a new array
+  let filteredItems = items.filter((item) => {
+    if (item.category === category) {
+      return item;
+    }
+  });
 
+  return filteredItems;
+};
+
+module.exports = {
+  handleProduct,
+  handleSingleProduct,
+  sortCategory,
+  getProduct,
+  getSingleProduct,
+  listCompanies,
+  listUsers,
+  listProducts,
+  listOrders,
+  listUserOrders,
+  showUserProfile,
+  handleSignIn,
+  handleSignOut,
+  handleSignUp,
+  handleCheckout,
+  getProductBy_id,
+  getProductBy_idMW,
+  getOrderBy_id,
+  deleteOrderBy_id,
+  handlePurchase_t,
+};
