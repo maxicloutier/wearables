@@ -68,6 +68,7 @@ const AppHeader = styled.header`
 const StyledLink = styled.nav`
   display: inline-flex;
   align-items: center;
+
   /* overflow: auto; */
 
   a {

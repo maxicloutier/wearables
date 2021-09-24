@@ -21,11 +21,11 @@ function App() {
           <Header />
           <HomePage />
         </Route>
-        <Route exact path="/shop">
+        <Route path="/shop">
           <Header />
           <Shop />
         </Route>
-        <Route exact path="/productdetails">
+        <Route exact path="/productdetails/:_id">
           <Header />
           <ProductDetails />
         </Route>
