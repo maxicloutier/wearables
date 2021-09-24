@@ -43,15 +43,22 @@ const Team = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 const MemberDiv = styled.div`
   display: flex;
   flex-direction: column;
+  width: 400px;
+  margin: 20px;
+  text-align: center;
 `;
 
 const Img = styled.img`
   border-radius: 50%;
+  width: 200px;
+  width: 200px;
+  text-align: center;
 `;
 
 export default Team;

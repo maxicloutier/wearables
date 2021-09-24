@@ -232,6 +232,7 @@ const handleSignIn = async (req, res) => {
     if (validPsw) {
       //if the user can login, save _id of the user to session
       req.session.user_id = userFound._id;
+      req.session.username = username;
       console.log("session:", req.session);
       return res.status(200).json({
         status: 200,
@@ -286,10 +287,10 @@ const handleCheckout = (req, res) => {
 };
 
 const listUserOrders = (req, res) => {
-  const user_id = req.session.user_id;
-  console.log("cur user_id", user_id);
-  if (user_id) {
-    const orderAry = findAllOrdersByUser_id(user_id);
+  const username = req.session.username;
+  console.log("cur user_id", username);
+  if (username) {
+    const orderAry = findAllOrdersByUser_id(username);
     console.log("order list:", orderAry);
 
     if (orderAry) {
