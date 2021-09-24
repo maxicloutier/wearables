@@ -40,6 +40,7 @@ const saveToFakeOrdersCollection = (newOrder) => {
 };
 // mock method of db.orders.find({user_id:<ObjectId>})
 const findAllOrdersByUser_id = (user_id) => {
+  console.log("taco", user_id);
   return orders.filter((order) => order.user_id == user_id);
 };
 // db.orders.findOne({_id:<ObjectId>})

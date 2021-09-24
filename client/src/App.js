@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
-import { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
 import Shop from "./products/Shop";
 import ProductDetails from "./products/ProductDetails";
@@ -12,13 +11,11 @@ import SignUp from "./components/SignUp.js";
 import SignIn from "./components/SignIn.js";
 import Team from "./components/Team.js";
 import Account from "./components/Account.js";
+import ShoppingCart from "./orders/Cart";
 
 function App() {
   return (
     <BrowserRouter>
-      <GlobalStyle />
-
-      {/* <Header /> */}
       <Switch>
         <Route exact path="/">
           <Header />
@@ -52,31 +49,14 @@ function App() {
           <Header />
           <Team />
         </Route>
+        <Route exact path="/cart">
+          <Header />
+          <ShoppingCart />
+        </Route>
       </Switch>
       <Footer />
     </BrowserRouter>
   );
 }
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-
- 
-
- background: #5e4f3e;
-  background: radial-gradient(
-    circle,
-    #deb992 0%,
-    #5e4f3e 100%
-  );
-}
- 
-`;
 
 export default App;

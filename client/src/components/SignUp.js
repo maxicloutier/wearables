@@ -40,7 +40,6 @@ const SignUp = () => {
         // If operation sends a successful response, use localStorage so that the user stays signed in until they decide to sign out of their account. If unsuccessful response, send an error message.
         if (data.status === 200) {
           localStorage.setItem("username", formData.username);
-          localStorage.setItem("email", formData.email);
         } else {
           alert("This username is not available. Please try another one. ");
         }
