@@ -49,14 +49,15 @@ const AppHeader = styled.header`
   background-color: #051622;
   width: 100vw;
   height: 50px;
+  display: flex;
 `;
 
 const StyledLink = styled.nav`
   display: inline-flex;
-
+  align-items: center;
   a {
     color: #deb992;
-    padding-right: 10px;
+    padding-right: 20px;
   }
   .selected {
   }

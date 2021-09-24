@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, NavLink } from "react-router-dom";
 
 const ProductDetails = () => {
-  const [company, setCompany] = useState({});
+  const [companies, setCompanies] = useState(null);
   const [item, setItem] = useState(null);
   const params = useParams();
   const _id = params._id;
@@ -26,12 +26,18 @@ const ProductDetails = () => {
     fetch("/company")
       .then((res) => res.json())
       .then((data) => {
-        setCompany(data);
-        console.log("Company", company);
+        if (data.data) {
+          setCompanies(data.data);
+        }
       });
   }, []);
 
-  if (!item || !company) {
+  const company =
+    companies &&
+    item &&
+    companies.find((company) => company._id === item.companyId);
+
+  if (!item) {
     return null;
   }
   return (
@@ -44,12 +50,17 @@ const ProductDetails = () => {
             </ImageCompanyWrapper>
             <div>
               <Name>{item.name}</Name>
-              {/* {company.filter(item._id === company._id).map(filteredCompany => {
-                return (
-              <h3>{company.name}</h3>
-              <a>{company.url}</a>
-              <h4>{company.country}</h4>);
-                })} */}
+              {company && (
+                <>
+                  <CompanyWrapper>
+                    <Company>{company.name}</Company>
+                    <Url>
+                      <NavLink>{company.url}</NavLink>
+                    </Url>
+                    <Country>{company.country}</Country>
+                  </CompanyWrapper>
+                </>
+              )}
             </div>
           </DetailWrapper>
           <NamePriceWrapper>
@@ -89,11 +100,11 @@ const ProductDetails = () => {
             <button onClick={() => history.goBack()}>Back</button>
           </Back>
         </List>
-        {/* ); */}
       </Wrapper>
     </>
   );
 };
+
 const Wrapper = styled.div`
   display: flex;
   margin-top: 100px;
@@ -307,16 +318,35 @@ const Back = styled.div`
   }
 `;
 
+const CompanyWrapper = styled.div`
+  margin-left: 25px;
+`;
+
 const Company = styled.div`
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 5px;
+  margin-top: 30px;
+`;
+const Country = styled.div`
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1;
+  color: #fff;
+  margin-top: 5px;
+`;
+
+const Url = styled.link`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 18px;
   font-weight: normal;
   line-height: 1;
   color: #fff;
   margin-bottom: 5px;
-  margin-left: 10px;
-  transform-origin: top right;
-  transform: rotate(-90deg) translateY(-15%);
 `;
 
 export default ProductDetails;

@@ -22,6 +22,7 @@ const Shop = () => {
 
   useEffect(() => {
     const path = category ? `/product20?category=${category}` : "/product20";
+    console.log("path", path);
     fetch(path)
       .then((res) => res.json())
       .then((data) => {

@@ -24,7 +24,7 @@ function App() {
           <Header />
           <HomePage />
         </Route>
-        <Route exact path="/shop">
+        <Route path="/shop">
           <Header />
           <Shop />
         </Route>
@@ -67,13 +67,12 @@ const GlobalStyle = createGlobalStyle`
 
   body {
 
- /* background: rgb(#051622); */
- /* background: -webkit-gradient(linear, left top, left bottom, from(#deb992), to(#051622) fixed; */
+ 
 
  background: #5e4f3e;
   background: radial-gradient(
     circle,
-    #deb992) 0%,
+    #deb992 0%,
     #5e4f3e 100%
   );
 }
