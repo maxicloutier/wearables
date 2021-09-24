@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./components/Header";
@@ -14,43 +14,55 @@ import Account from "./components/Account.js";
 import ShoppingCart from "./orders/Cart";
 
 function App() {
+  const [user, setUser] = useState();
+
+  const getUserData = () => {
+    return fetch("/user/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          setUser(data.data);
+          console.log(data.data, "user");
+        }
+      })
+      .catch((error) => {
+        console.error("Error", error);
+      });
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <BrowserRouter>
+      <Header user={user} setUser={setUser} />
       <Switch>
         <Route exact path="/">
-          <Header />
           <HomePage />
         </Route>
         <Route path="/shop">
-          <Header />
           <Shop />
         </Route>
         <Route exact path="/productdetails/:_id">
-          <Header />
           <ProductDetails />
         </Route>
         <Route path="/updateorder">
-          <Header />
           <UpdateOrder />
         </Route>
         <Route exact path="/signup">
-          <Header />
           <SignUp />
         </Route>
         <Route exact path="/signin">
-          <Header />
-          <SignIn />
+          <SignIn getUserData={getUserData} />
         </Route>
         <Route exact path="/account">
-          <Header />
-          <Account />
+          <Account user={user} setUser={setUser} />
         </Route>
         <Route exact path="/team">
-          <Header />
           <Team />
         </Route>
         <Route exact path="/cart">
-          <Header />
           <ShoppingCart />
         </Route>
       </Switch>

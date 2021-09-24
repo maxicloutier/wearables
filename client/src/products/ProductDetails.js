@@ -209,8 +209,8 @@ const DollarAmount = styled.div`
 const Cents = styled.div`
   font-size: 18px;
   padding-top: 7px;
-  l
 `;
+
 const Where = styled.div`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 18px;

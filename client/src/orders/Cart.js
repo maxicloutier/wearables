@@ -47,6 +47,10 @@ const ShoppingCart = () => {
               </div>
             );
           })}
+          <div>
+            <p>Total</p>
+            <button>Confirm Order</button>
+          </div>
         </Div>
       )}
     </TheDiv>

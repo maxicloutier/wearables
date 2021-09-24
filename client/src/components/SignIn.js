@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 
-const SignIn = () => {
+const SignIn = ({ getUserData }) => {
   // Initial state of state variable formData.
   const initialState = {
     username: "",
@@ -30,19 +30,13 @@ const SignIn = () => {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          // If operation sends a successful response, use localStorage so that the user stays signed in until they decide to sign out of their account. If unsuccessful response, send an error message.
-          localStorage.setItem("username", formData.username);
-        } else {
-          alert("Username or password is incorrect.");
-        }
-      });
-
-    // Redirect new user to their account page.
-    history.push("/account");
+    }).then((res) => {
+      if (res.ok) {
+        getUserData().then(() => history.push("/"));
+      } else {
+        alert("Username or password is incorrect.");
+      }
+    });
   };
 
   let readyToSubmit = false;

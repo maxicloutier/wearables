@@ -3,23 +3,7 @@ import styled from "styled-components";
 import { GlobalStyle } from "../App";
 import { NavLink } from "react-router-dom";
 
-const Header = () => {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    fetch("/user/me")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data) {
-          setUser(data.data);
-          console.log(data.data, "user");
-        }
-      })
-      .catch((error) => {
-        console.error("Error", error);
-      });
-  }, []);
-
+const Header = ({ user }) => {
   return (
     <AppHeader>
       <StyledLink>
@@ -63,6 +47,7 @@ const AppHeader = styled.header`
   margin: 0;
   background-color: black;
   width: 100vw;
+  min-height: 76px;
 `;
 
 const StyledLink = styled.nav`

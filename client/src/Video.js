@@ -19,7 +19,7 @@ const Video = () => {
 
 const VideoContainer = styled.div`
   position: fixed;
-  margin-top: 50px;
+  margin-top: 76px;
   top: 0px;
   left: 0px;
   overflow: hidden;
