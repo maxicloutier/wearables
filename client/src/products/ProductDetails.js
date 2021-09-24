@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams, useHistory, NavLink } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
-const ProductDetails = () => {
+const ProductDetails = ({ getUserData }) => {
   const [companies, setCompanies] = useState(null);
   const [item, setItem] = useState(null);
+  const initialState = { product_id: 0, operation: "add" };
+  const [state, setState] = useState(initialState);
   const params = useParams();
   const _id = params._id;
 
@@ -32,6 +34,53 @@ const ProductDetails = () => {
       });
   }, []);
 
+  const addFunc = (product_id) => {
+    fetch("/user/cart_test", {
+      method: "PATCH",
+      body: JSON.stringify({ operation: "add", product_id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          getUserData();
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const removeFunc = (product_id) => {
+    fetch("/user/cart_test", {
+      method: "PATCH",
+      body: JSON.stringify({
+        operation: "remove",
+        product_id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          getUserData();
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const checkoutFunc = () => {
+    fetch("/user/checkout", {
+      method: "POST",
+    })
+      .then((res) => {
+        if (res.ok) {
+          getUserData();
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
   const company =
     companies &&
     item &&
@@ -54,9 +103,7 @@ const ProductDetails = () => {
                 <>
                   <CompanyWrapper>
                     <Company>{company.name}</Company>
-                    <Url>
-                      <NavLink>{company.url}</NavLink>
-                    </Url>
+                    <Url>{company.url}</Url>
                     <Country>{company.country}</Country>
                   </CompanyWrapper>
                 </>
@@ -81,19 +128,20 @@ const ProductDetails = () => {
               <Supply>
                 {item.numInStock > 0 ? (
                   item.numInStock && (
-                    <button
-                      onClick={() => {
-                        // setItemCount(itemCount + 1);
-                      }}
-                    >
-                      Add to Cart
-                    </button>
+                    <>
+                      <button onClick={() => addFunc(item._id)}>
+                        Add to Cart
+                      </button>
+                      <button onClick={() => removeFunc(item._id)}>
+                        Remove from Cart
+                      </button>
+                    </>
                   )
                 ) : (
                   <span>Not In Stock</span>
                 )}
               </Supply>
-              <CheckOut onClick="">Check Out</CheckOut>
+              <CheckOut onClick={checkoutFunc}>Check Out</CheckOut>
             </ButtonsAlign>
           </NamePriceWrapper>
           <Back>
@@ -340,7 +388,7 @@ const Country = styled.div`
   margin-top: 5px;
 `;
 
-const Url = styled.link`
+const Url = styled.a`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 18px;
   font-weight: normal;

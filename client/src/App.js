@@ -45,7 +45,7 @@ function App() {
           <Shop />
         </Route>
         <Route exact path="/productdetails/:_id">
-          <ProductDetails />
+          <ProductDetails getUserData={getUserData} />
         </Route>
         <Route path="/updateorder">
           <UpdateOrder />
@@ -63,7 +63,7 @@ function App() {
           <Team />
         </Route>
         <Route exact path="/cart">
-          <ShoppingCart />
+          <ShoppingCart user={user} />
         </Route>
       </Switch>
       <Footer />

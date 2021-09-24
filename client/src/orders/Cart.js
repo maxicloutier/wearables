@@ -1,27 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const ShoppingCart = () => {
-  // const [cart, setCart] = useState();
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    fetch("/user/me")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data) {
-          setUser(data.data);
-          console.log(data.data, "USER");
-          // if (data.cart) {
-          //   setCart(data.cart);
-          //   console.log(data.cart, "CART");
-          // }
-        }
-      })
-      .catch((error) => {
-        console.error("Error", error);
-      });
-  }, []);
+const ShoppingCart = ({ user }) => {
+  const handleCheckout = () => {
+    fetch("/user/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+  };
 
   return (
     <TheDiv>
@@ -49,7 +35,7 @@ const ShoppingCart = () => {
           })}
           <div>
             <p>Total</p>
-            <button>Confirm Order</button>
+            <button onClick={handleCheckout}>Confirm Order</button>
           </div>
         </Div>
       )}
