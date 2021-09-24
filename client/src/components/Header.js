@@ -46,12 +46,9 @@ const Header = () => {
 };
 
 const AppHeader = styled.header`
-  display: block;
   background-color: #051622;
   width: 100vw;
   height: 50px;
-  /* margin: 0;
-  padding: 0; */
 `;
 
 const StyledLink = styled.nav`

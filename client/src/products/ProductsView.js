@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useParams, useHistory } from "react-router-dom";
 import ProductDetails from "./ProductDetails";
 
-const ProductView = ({ items }) => {
+const ProductView = ({ items, category }) => {
+  const [disable, setDisable] = useState(true);
   const params = useParams();
   const _id = params._id;
 
@@ -17,15 +18,8 @@ const ProductView = ({ items }) => {
   return (
     <>
       <Wrapper>
-        {/* {status === "loading" || !users ? (
-          <div>
-            <p>Waiting...</p>
-          </div>
-        ) : (
-          <> */}
-
         <ContentContainer>
-          <Title>Here's what we found</Title>
+          <Title>Here's what we found in {category}</Title>
 
           {items && (
             <div>
@@ -38,7 +32,7 @@ const ProductView = ({ items }) => {
                     <Name>{item.name}</Name>
                     <NamePriceWrapper>
                       <ImageCompanyWrapper>
-                        <img src={item.imageSrc}></img>
+                        <img src={item.imageSrc} alt={item.name}></img>
                       </ImageCompanyWrapper>
                       <Price>
                         <AlignPrice>
@@ -59,11 +53,11 @@ const ProductView = ({ items }) => {
                               // setItemCount(itemCount + 1);
                             }}
                           >
-                            Buy Now
+                            Add to Cart
                           </button>
                         )
                       ) : (
-                        <span>out of stock</span>
+                        <button disabled={disable}>No Stock</button>
                       )}
                     </Supply>
                   </List>
@@ -105,13 +99,15 @@ const ContentContainer = styled.div`
 
 const NamePriceWrapper = styled.div`
   flex-direction: column;
+  /* place-content: center; */
+  text-align: center;
 `;
 
 const ImageCompanyWrapper = styled.div`
   display: inline-flex;
   margin: 5px 0;
-  width: 107px;
-  height: 75px;
+  width: 160px;
+  height: 120px;
 
   & img {
     z-index: 3;
@@ -124,12 +120,13 @@ const ImageCompanyWrapper = styled.div`
     -moz-border-radius-bottomright: 12px;
     border-top-left-radius: 12px;
     border-bottom-right-radius: 12px;
+    border: 1px solid #deb992;
   }
 `;
 
 const List = styled.li`
   list-style-type: none;
-  width: 120px;
+  width: 175px;
   height: auto;
   margin-right: 20px;
   margin-bottom: 20px;
@@ -147,9 +144,9 @@ const List = styled.li`
 `;
 const Name = styled.div`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 10px;
-  font-weight: bold;
-  line-height: 1;
+  font-size: 11px;
+  font-weight: normal;
+  line-height: 1.2;
   color: #fff;
   margin-bottom: 12px;
   z-index: 7;
@@ -167,12 +164,11 @@ const Price = styled.div`
   font-weight: bold;
   line-height: 1;
   color: #fff;
-  margin-left: 25px;
-  margin-top: -25px;
+  top: -32px;
   display: inline-flex;
   z-index: 5;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   align-items: center;
   justify-content: center;
 
@@ -181,21 +177,22 @@ const Price = styled.div`
     z-index: 4;
     background-color: #1ba098;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     inset: 0;
     z-index: -1;
+    border: 1px solid #deb992;
     filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.2));
   }
 `;
 
 const DollarSign = styled.div`
-  font-size: 14px;
+  font-size: 9px;
   padding-top: 2px;
 `;
 const DollarAmount = styled.div`
-  font-size: 24px;
+  font-size: 19px;
   letter-spacing: -1px;
   color: #deb992;
 `;
@@ -205,6 +202,9 @@ const Cents = styled.div`
 `;
 
 const Supply = styled.div`
+  position: relative;
+  top: -15px;
+  text-align: center;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -220,8 +220,6 @@ const Supply = styled.div`
     font-size: 14px;
     font-weight: bold;
     color: #1ba098;
-    margin-top: 10px;
-    margin-left: 8px;
 
     -webkit-border-topleft-radius: 12px;
     -webkit-border-bottomright-radius: 12px;
@@ -230,15 +228,10 @@ const Supply = styled.div`
     border-top-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
-
-  & > span {
-    margin-top: 20 px;
-    text-align: center;
+  & button:hover {
+    background-color: #1ba098;
+    color: #051622;
   }
 `;
-// const OutOfStock = styled.span`
-//   margin-top: 20 px;
-//   text-align: center;
-// `;
 
 export default ProductView;

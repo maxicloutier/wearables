@@ -65,14 +65,14 @@ const Headline = styled.h2`
 `;
 
 const Text = styled.div`
-  color: #fff;
+  color: #051622;
   font-size: 14px;
   letter-spacing: 2px;
   line-height: 1.8;
   margin-top: 0px;
   background: transparent;
   mix-blend-mode: multiply;
-  background-color: #6129d9;
+  background-color: #1ba098;
   opacity: 0.75;
   padding: 15px 15px 15px 25px;
   -webkit-border-top-left-radius: 25px;
@@ -81,8 +81,8 @@ const Text = styled.div`
   -moz-border-radius-bottomright: 25px;
   border-top-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  border-bottom: solid 2px #f2a341;
-  border-top: solid 2px #f2a341;
+  border-bottom: solid 2px #deb992;
+  border-top: solid 2px #deb992;
 `;
 const CompanyName = styled.div`
   width: 125px;

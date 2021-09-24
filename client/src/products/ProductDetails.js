@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams, useHistory } from "react-router-dom";
 
 const ProductDetails = () => {
-  const [companies, setCompanies] = useState({});
+  const [company, setCompany] = useState({});
   const [item, setItem] = useState(null);
   const params = useParams();
   const _id = params._id;
@@ -26,27 +26,31 @@ const ProductDetails = () => {
     fetch("/company")
       .then((res) => res.json())
       .then((data) => {
-        setCompanies(data);
+        setCompany(data);
+        console.log("Company", company);
       });
   }, []);
 
-  if (!item) {
+  if (!item || !company) {
     return null;
   }
   return (
     <>
       <Wrapper>
-        {/* {companies && (
-            <div>
-              {companies.forEach((id) => {
-                if id === _id
-                return ( */}
         <List>
           <DetailWrapper>
             <ImageCompanyWrapper>
               <img src={item.imageSrc}></img>
             </ImageCompanyWrapper>
-            <Name>{item.name}</Name>
+            <div>
+              <Name>{item.name}</Name>
+              {/* {company.filter(item._id === company._id).map(filteredCompany => {
+                return (
+              <h3>{company.name}</h3>
+              <a>{company.url}</a>
+              <h4>{company.country}</h4>);
+                })} */}
+            </div>
           </DetailWrapper>
           <NamePriceWrapper>
             Where to Wear:
@@ -62,22 +66,28 @@ const ProductDetails = () => {
                 <Cents>{item.price.slice(-3)}</Cents>
               </AlignPrice>
             </Price>
-            <Supply>
-              {item.numInStock > 0 ? (
-                item.numInStock && (
-                  <button
-                    onClick={() => {
-                      // setItemCount(itemCount + 1);
-                    }}
-                  >
-                    Buy Now
-                  </button>
-                )
-              ) : (
-                <span>out of stock</span>
-              )}
-            </Supply>
+            <ButtonsAlign>
+              <Supply>
+                {item.numInStock > 0 ? (
+                  item.numInStock && (
+                    <button
+                      onClick={() => {
+                        // setItemCount(itemCount + 1);
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                  )
+                ) : (
+                  <span>Not In Stock</span>
+                )}
+              </Supply>
+              <CheckOut onClick="">Check Out</CheckOut>
+            </ButtonsAlign>
           </NamePriceWrapper>
+          <Back>
+            <button onClick={() => history.goBack()}>Back</button>
+          </Back>
         </List>
         {/* ); */}
       </Wrapper>
@@ -106,7 +116,7 @@ const ImageCompanyWrapper = styled.div`
   width: 200px;
 
   & img {
-    width: 150px;
+    width: 200px;
     height: auto;
     -webkit-border-top-left-radius: 25px;
     -webkit-border-bottom-right-radius: 25px;
@@ -115,6 +125,7 @@ const ImageCompanyWrapper = styled.div`
     border-top-left-radius: 25px;
     border-bottom-right-radius: 25px;
     border: 1px solid #deb992;
+    margin-bottom: 10px;
   }
 `;
 
@@ -214,6 +225,13 @@ const CatBottom = styled.div`
   margin-right: 10px;
 `;
 
+const ButtonsAlign = styled.div`
+  display: inline-flex;
+  width: 400px;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
 const Supply = styled.div`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 18px;
@@ -221,13 +239,14 @@ const Supply = styled.div`
   line-height: 1;
   color: #fff;
   margin-bottom: 5px;
-  text-align: right;
+
+  margin-top: 25px;
 
   & button {
     outline: none;
     border: none;
-    width: 200px;
-    margin-top: 10px;
+    width: 145px;
+    height: 38px;
     background-color: #051622;
     padding: 10px 21px;
     font-size: 18px;
@@ -239,6 +258,52 @@ const Supply = styled.div`
     -moz-border-radius-bottomleft: 25px;
     border-top-right-radius: 25px;
     border-bottom-left-radius: 25px;
+  }
+
+  & button:hover {
+    background-color: #1ba098;
+    color: #051622;
+  }
+`;
+
+const CheckOut = styled.button`
+  outline: none;
+  border: none;
+  width: 145px;
+  height: 38px;
+  margin-top: 20px;
+  background-color: #1ba098;
+  padding: 10px 21px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #051622;
+  -webkit-border-topleft-radius: 25px;
+  -webkit-border-bottomright-radius: 25px;
+  -moz-border-radius-topleft: 25px;
+  -moz-border-radius-bottomright: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+`;
+
+const Back = styled.div`
+  text-align: right;
+  & button {
+    outline: none;
+    border: none;
+    width: 145px;
+    height: 38px;
+    margin-top: 20px;
+    background-color: #deb992;
+    padding: 10px 21px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #051622;
+    -webkit-border-topleft-radius: 25px;
+    -webkit-border-bottomright-radius: 25px;
+    -moz-border-radius-topleft: 25px;
+    -moz-border-radius-bottomright: 25px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
   }
 `;
 

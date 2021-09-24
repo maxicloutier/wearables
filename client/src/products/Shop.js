@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ProductView from "./ProductsView";
-import Details from "./ProductDetails";
+// import ProductDetails from "./ProductDetails";
 // import Pagination from "./Pagination";
 
 const Shop = () => {
@@ -10,11 +10,11 @@ const Shop = () => {
   const [category, setCategory] = useState(null);
 
   // pagination states
-  // const [items, setItems] = useState([]);
+  // const [products, setProducts] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
   // const [itemsPerPage, seItemsPerPage] = useState(6);
 
-  let history = useHistory();
+  // let history = useHistory();
 
   function handleClick(category) {
     setCategory(category);
@@ -49,7 +49,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Fitness")}>
               <ButtonLabel>
-                <img src="/assets/fitness.png" />
+                <img src="/assets/fitness.png" alt="fitness icon" />
                 <p>Fitness</p>
               </ButtonLabel>
             </CatButtons>
@@ -57,7 +57,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Medical")}>
               <ButtonLabel>
-                <img src="/assets/medical.png" />
+                <img src="/assets/medical.png" alt="medical icon" />
                 <p>Medical</p>
               </ButtonLabel>
             </CatButtons>
@@ -65,7 +65,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Lifestyle")}>
               <ButtonLabel>
-                <img src="/assets/lifestyle.png" />
+                <img src="/assets/lifestyle.png" alt="lifestyle icon" />
                 <p>Lifestyle</p>
               </ButtonLabel>
             </CatButtons>
@@ -73,7 +73,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Entertainment")}>
               <ButtonLabel>
-                <img src="/assets/entertainment.png" />
+                <img src="/assets/entertainment.png" alt="entertainment icon" />
                 <p>Entertainment</p>
               </ButtonLabel>
             </CatButtons>
@@ -81,7 +81,7 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Pets and Animals")}>
               <ButtonLabel>
-                <img src="/assets/pets.png" />
+                <img src="/assets/pets.png" alt="pets and animals icon" />
                 <p>Pets & Animals</p>
               </ButtonLabel>
             </CatButtons>
@@ -89,13 +89,13 @@ const Shop = () => {
           <Cats>
             <CatButtons onClick={() => handleClick("Gaming")}>
               <ButtonLabel>
-                <img src="/assets/gaming.png" />
+                <img src="/assets/gaming.png" alt="gaming icon" />
                 <p>Gaming</p>
               </ButtonLabel>
             </CatButtons>
           </Cats>
         </CatWrapper>
-        <ProductView items={items} />
+        <ProductView items={items} category={category} />
         {/* <Pagination
           itemsPerPage={itemsPerPage}
           totalItems={items.length}
@@ -107,7 +107,7 @@ const Shop = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1200px;
+  width: 100%;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
