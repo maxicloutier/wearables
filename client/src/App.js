@@ -16,43 +16,44 @@ import Account from "./components/Account.js";
 function App() {
   return (
     <BrowserRouter>
-      <Wrapper>
-        <Switch>
-          <Route exact path="/">
-            <Header />
-            <HomePage />
-          </Route>
-          <Route exact path="/shop">
-            <Header />
-            <Shop />
-          </Route>
-          <Route exact path="/productdetails">
-            <Header />
-            <ProductDetails />
-          </Route>
-          <Route path="/updateorder">
-            <Header />
-            <UpdateOrder />
-          </Route>
-          <Route exact path="/signup">
-            <Header />
-            <SignUp />
-          </Route>
-          <Route exact path="/signin">
-            <Header />
-            <SignIn />
-          </Route>
-          <Route exact path="/account">
-            <Header />
-            <Account />
-          </Route>
-          <Route exact path="/team">
-            <Header />
-            <Team />
-          </Route>
-        </Switch>
-        <Footer />
-      </Wrapper>
+      <GlobalStyle />
+
+      {/* <Header /> */}
+      <Switch>
+        <Route exact path="/">
+          <Header />
+          <HomePage />
+        </Route>
+        <Route exact path="/shop">
+          <Header />
+          <Shop />
+        </Route>
+        <Route exact path="/productdetails/:_id">
+          <Header />
+          <ProductDetails />
+        </Route>
+        <Route path="/updateorder">
+          <Header />
+          <UpdateOrder />
+        </Route>
+        <Route exact path="/signup">
+          <Header />
+          <SignUp />
+        </Route>
+        <Route exact path="/signin">
+          <Header />
+          <SignIn />
+        </Route>
+        <Route exact path="/account">
+          <Header />
+          <Account />
+        </Route>
+        <Route exact path="/team">
+          <Header />
+          <Team />
+        </Route>
+      </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }
@@ -63,14 +64,20 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-`;
 
-const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  padding: 25px;
+  body {
 
-  display: flex;
+ /* background: rgb(#051622); */
+ /* background: -webkit-gradient(linear, left top, left bottom, from(#deb992), to(#051622) fixed; */
+
+ background: #5e4f3e;
+  background: radial-gradient(
+    circle,
+    #deb992) 0%,
+    #5e4f3e 100%
+  );
+}
+ 
 `;
 
 export default App;

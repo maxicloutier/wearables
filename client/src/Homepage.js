@@ -7,8 +7,6 @@ const HomePage = () => {
   return (
     <>
       <Wrapper>
-        {/* <Screen> */}
-        <Video />
         <ContentWrapper>
           <CompanyName>
             <img src="/assets/logo.png" alt="Wearables Logo" />
@@ -27,7 +25,7 @@ const HomePage = () => {
             </Text>
           </ContentContainer>
         </ContentWrapper>
-        {/* </Screen> */}
+        <Video />
       </Wrapper>
     </>
   );
@@ -40,6 +38,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 `;
 
 const ContentWrapper = styled.div`
@@ -47,12 +46,11 @@ const ContentWrapper = styled.div`
   align-items: flex-end;
   margin: 0 auto;
   height: 500px;
+  z-index: 3;
 `;
 
 const ContentContainer = styled.div`
   z-index: 10;
-  /* margin-left: 15px;
-  margin-top: 25px; */
   width: 425px;
   height: 245px;
 `;
@@ -64,8 +62,6 @@ const Headline = styled.h2`
   margin-bottom: 25px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   letter-spacing: 1px;
-  /* z-index: 15;
-  opacity: 1; */
 `;
 
 const Text = styled.div`
@@ -77,7 +73,7 @@ const Text = styled.div`
   background: transparent;
   mix-blend-mode: multiply;
   background-color: #6129d9;
-  opacity: 0.5;
+  opacity: 0.75;
   padding: 15px 15px 15px 25px;
   -webkit-border-top-left-radius: 25px;
   -webkit-border-bottom-right-radius: 25px;
